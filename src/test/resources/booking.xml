@@ -1,0 +1,7 @@
+<suite name="Cucumber Suite" parallel="methods" thread-count="5">
+    <test name="Cucumber Tests">
+        <classes>
+            <class name="RunnerTest"/>
+        </classes>
+    </test>
+</suite>
