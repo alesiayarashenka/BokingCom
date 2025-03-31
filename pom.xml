@@ -5,66 +5,57 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>BokingCom</artifactId>
+    <artifactId>BookingCom</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hamcrest.version>3.0</hamcrest.version>
-<!--                <selenium-java.version>4.28.1</selenium-java.version>-->
         <testng.version>7.4.0</testng.version>
         <webdrivermanager.version>5.9.3</webdrivermanager.version>
+        <hamcrest.version>3.0</hamcrest.version>
         <lombok.version>1.18.36</lombok.version>
-        <!--        <suiteXmlFile>sauceDemo.xml</suiteXmlFile>-->
-        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
-        <aspectjweaver.version>1.9.22</aspectjweaver.version>
-        <allure-maven.version>2.10.0</allure-maven.version>
         <allure-testng.version>2.28.1</allure-testng.version>
+        <aspectjweaver.version>1.9.22</aspectjweaver.version>
         <jackson-dataformat-yaml.version>2.17.2</jackson-dataformat-yaml.version>
         <log4j-core.version>2.20.0</log4j-core.version>
         <selenide.version>7.7.3</selenide.version>
         <selenide-core.version>7.7.3</selenide-core.version>
+        <cucumber.version>7.21.1</cucumber.version>
     </properties>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
+                <version>3.4.0</version>
                 <configuration>
-                    <!--                    <suiteXmlFiles>-->
-                    <!--                        <suiteXmlFile>src/test/resources/${suiteXmlFile}</suiteXmlFile>-->
-                    <!--                    </suiteXmlFiles>-->
                     <argLine>
-                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar -Xmx256m
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar -Xmx256m
                     </argLine>
+                    <!-- Чтобы перед тестами пропускался build проекта, который включает прогон всех тестов: -->
+                    <skipTests>true</skipTests>
                 </configuration>
                 <dependencies>
                     <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectjweaver.version}</version>
+                        <version>1.9.22</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>${allure-maven.version}</version>
+                <version>2.10.0</version>
             </plugin>
         </plugins>
     </build>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.seleniumhq.selenium</groupId>-->
-        <!--            <artifactId>selenium-java</artifactId>-->
-        <!--            <version>${selenium-java.version}</version>-->
-        <!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -83,7 +74,12 @@
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
@@ -93,12 +89,6 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectjweaver.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
         </dependency>
         <!--Для считывания yaml-файлов -->
         <dependency>
@@ -123,24 +113,23 @@
             <artifactId>selenide-core</artifactId>
             <version>${selenide-core.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>7.21.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
-        <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-core</artifactId>
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
-            <version>7.21.1</version>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>${cucumber.version}</version>
         </dependency>
     </dependencies>
-
 </project>
